@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <h1>Campo de texto que cambia el encabezado</h1>
+  <div id="app">
+    <h2>{{ title }}</h2>
+    <p>
+      <input type="text" v-model="title">
+    </p>
+  </div>
+  <script>
+    const {createApp} = Vue
+
+    const app = createApp({
+      data() {
+        return {
+          title: 'Valor por defecto'
+        }
+      }
+    })
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
