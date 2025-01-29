@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    li.completed {
+      color: red;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mi primer VUE</h1>
+  <div id="app">
+    <h1>Cosas que hay que hacer</h1>
+    <p>
+      <input type="text" placeholder="Nueva tarea" v-model="newTask" @keypress.enter="addTask">
+      <button @click="addTask()">Crear Tarea</button>
+    </p>
+    <p>Número de Tareas: {{tasks.length}}</p>
+    <ul>
+      <li v-for="(task, index) in tasks" 
+          :key="index"
+          @click="toggleCompletedTask(index)"
+          :class="{completed: task.completed}"
+          >
+          {{ task.concept }}
+          <button @click="removeTask(index)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  <script>
+    const {createApp, ref} = Vue
+
+    const app = createApp({
+      data() {
+        return {
+          tasks: [
+            {concept: 'Aprender Vue', completed: false}, 
+            {concept: 'Aprobar examen de Vue', completed: false}
+          ],
+          newTask: '',
+        }
+      },
+      methods: {
+        removeTask(index) {
+          this.tasks.splice(index,1);
+        },
+        addTask() {
+          this.tasks.push(
+            {
+              concept: this.newTask, 
+              completed: false
+            }
+          );
+          this.newTask = '';
+        },
+        toggleCompletedTask(index) {
+          this.tasks[index].completed = !this.tasks[index].completed;
+        }
+      }
+    });
+
+    app.mount('#app');
+
+  </script>
+</body>
+</html>

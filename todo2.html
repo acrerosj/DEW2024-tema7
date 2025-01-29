@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    li.completed {
+      color: red;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mi primer VUE</h1>
+  <div id="app">
+    <h1>Cosas que hay que hacer</h1>
+    <p>
+      <input type="text" placeholder="Nueva tarea" v-model="newTask" @keypress.enter="addTask">
+      <button @click="addTask()">Crear Tarea</button>
+    </p>
+    <h2>Tareas pendientes: {{tasks.length}} tareas</h2>
+    <ul>
+      <li v-for="(task,index) in tasks"
+          :key="index"
+          @click="toCompleted(index)"
+      >
+        {{ task.concept }}
+      </li>
+    </ul>
+    <h2>Tareas realizadas: {{completedTasks.length}} tareas</h2>
+    <ul>
+      <li v-for="(task,index) in completedTasks"
+        :key="index"
+        @click="toDo(index)"
+      >
+        {{ task.concept }}
+      </li>
+    </ul>
+  </div>
+  <script>
+    const {createApp, ref} = Vue
+
+    const app = createApp({
+      data() {
+        return {
+          tasks: [
+            {concept: 'Aprender Vue', completed: false}, 
+            {concept: 'Aprobar examen de Vue', completed: false}
+          ],
+          newTask: '',
+          completedTasks: [
+            {concept: 'completada Aprender Vue', completed: false}, 
+          ],
+        }
+      },
+      methods: {
+        addTask() {
+          this.tasks.push(
+            {
+              concept: this.newTask, 
+              completed: false
+            }
+          );
+          this.newTask = '';
+        },
+        toCompleted(index) {
+          const task = this.tasks.splice(index,1)[0];
+          task.completed = true;
+          this.completedTasks.push(task);
+        },
+        toDo(index) {
+          const task = this.completedTasks.splice(index,1)[0];
+          task.completed = false;
+          this.tasks.push(task);
+        }
+      }
+    });
+
+    app.mount('#app');
+
+  </script>
+</body>
+</html>

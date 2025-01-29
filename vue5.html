@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <h1>Mi primer VUE</h1>
+  <div id="app">
+    <h1>{{ person.name }} {{person.surname}}</h1>
+    <h2>{{ person.age }} años</h2>
+    <h1>{{ fullName }}</h1>
+  </div>
+  <script>
+    const {createApp, ref} = Vue
+
+    const app = createApp({
+      data() {
+        return {
+          person: {
+            name: 'Pepe',
+            surname: 'Pepón',
+            age: 33
+          }
+        }
+      },
+      computed: {
+        fullName() {
+          return this.person.name + " " + this.person.surname;
+        }
+      }
+    });
+
+    app.mount('#app');
+
+  </script>
+</body>
+</html>

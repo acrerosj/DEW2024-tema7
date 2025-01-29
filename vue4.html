@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <h1>Campo de texto que cambia el encabezado</h1>
+  <div id="app">
+    <p>{{ fruits }}</p>
+    <p>Número de frutas: {{ fruits.length }}</p>
+    <ul v-if="fruits.length">
+      <li v-for="fruit in fruits">{{ fruit }}</li>
+    </ul>
+    <div v-else>
+      <p>No hay frutas</p>
+      <p>Debe crear alguna</p>
+    </div>
+  </div>
+  <script>
+    const {createApp} = Vue
+
+    const app = createApp({
+      data() {
+        return {
+          fruits: ['plátano', 'kiwi', 'manzana', 'papaya']
+        }
+      }
+    })
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
